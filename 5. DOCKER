@@ -86,6 +86,7 @@ day-02: custom images, Dockerfile, Deployment
 
 CUSTOM IMAGES:
 maual method:
+docker pull ubuntu
 docker run -it --name cont1 ubuntu
 apt update -y
 apt install apache2 maven tree -y
