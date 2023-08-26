@@ -557,9 +557,9 @@ HISTORY:
    99  kops get cluster
   100  kops delete cluster --name rahams.k8s.local --yes
 
+
+----------------------------------------------------------------------------------------
 SERVICE: It is used to expose the application in k8s.
-
-
 
 TYPES:
 1. CLUSTERIP: It will work inside the cluster.
