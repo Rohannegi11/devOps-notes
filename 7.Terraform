@@ -61,10 +61,7 @@ resource "aws_instance" "one" {
 ami = "ami-0373aa64534d82bf6"
 instance_type = "t2.micro"
 }
-
-terraform apply --auto-approve
-terraform destroy --auto-approve
-
+------------------------------------------
 provider "aws" {
 region = "ap-southeast-2"
 }
@@ -310,17 +307,7 @@ Name = "raham-terraserver"
 }
 }
 
-resource "aws_s3_bucket" "abc" {
-bucket = "santosh887766bucket1"
-}
 
-resource "aws_ebs_volume" "xyz" {
-size = 25
-availability_zone = "ap-southeast-1a"
-tags = {
-Name = "raham-ebs"
-}
-}
 
 terraform validate: used to check syntax errors, ignore values
 terraform plan: indentation erros, ignore values
