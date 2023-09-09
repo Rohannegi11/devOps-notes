@@ -444,7 +444,10 @@ command: terraform graph -- > copy content and paste there
 
 Terraform import:
 -----------------
+
 used to import the configuration on resource which is created manually
+
+note:- just create 1 more instance  manually for terraform import
 
 vim main.tf
 
