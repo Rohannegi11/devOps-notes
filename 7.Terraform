@@ -317,8 +317,9 @@ terraform fmt: to make terraform files aligned with indentation
 ======================================================================================
 DAY - 3
 
-
 Terrafrom locals:
+------------------
+
 used to define value once and use multiple times.
 we can use the value in multiple blocks and resources.
 
@@ -344,6 +345,7 @@ resource "aws_s3_bucket" "abc" {
 
 
 ex:2
+
 provider "aws" {
   region = "ap-southeast-1"
 }
@@ -379,11 +381,46 @@ resource "aws_instance" "raham" {
 =====================================================================
 
 WORKSPACES:
+-------------
 it is used to create infra for multiple env 
 it will isolate each env
 if we work on dev env it wont affect test env
 the default workspace is default 
 all the resource we create on terraform by default will store on default workspace
+
+
+ex-1
+provider "aws" {
+  region = "us-east-1"
+}
+
+locals {
+  env = "${terraform.workspace}"
+}
+
+resource "aws_vpc" "rohan1" {
+  cidr_block = "10.0.0.0/24"
+  tags = {
+    Name = "${local.env}-vpc"
+  }
+}
+resource "aws_subnet" "rohan2" {
+  cidr_block = "10.0.0.0/24"
+  vpc_id     = aws_vpc.rohan1.id
+  tags = {
+    Name = "${local.env}-subnet"
+  }
+}
+
+resource "aws_instance" "rohan" {
+  subnet_id     = aws_subnet.rohan2.id
+  ami           = "ami-0f409bae3775dc8e5"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "${local.env}-instance"
+  }
+}
+
 
 terraform workspace list	: to list the workspaces
 terraform workspace new dev	: to create workspace
@@ -397,13 +434,17 @@ NOTE:
 2. we cant delete current workspace, we can switch and delete
 3. we cant delete default workspace
 
-TERRAFORM GRAPH: to show the flowcart of infra creation.
+TERRAFORM GRAPH:
+-----------------
+to show the flowcart of infra creation.
 usually used to understand the resource linking in real time
 
 website: https://graphviz.christine.website/
 command: terraform graph -- > copy content and paste there
 
-Terraform import: used to import the configuration on resource which is created manually
+Terraform import:
+-----------------
+used to import the configuration on resource which is created manually
 
 vim main.tf
 
@@ -418,6 +459,7 @@ resource "aws_instance" "one" {
 terraform import aws_instance.one i-059a814db4f792437
 
 check the state file for the resourec tracking info
+
 
 HISTORY:
 101  cd terraform/
